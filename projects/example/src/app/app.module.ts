@@ -18,4 +18,4 @@ import { NgxRxUtilsModule } from 'ngx-rx-utils';
   bootstrap: [AppComponent]
 })
 export class AppModule {
- }
+}

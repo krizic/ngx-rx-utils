@@ -17,6 +17,13 @@ export abstract class SubscriptionComponentBase extends SubscriptionBase impleme
     this.subs.add(super.subscribeAndTag(observable, tagName, cb));
   }
 
+  /**
+   * Registers a subscribtion to component subscription register
+   */
+  addSub(sub: Subscription) {
+    this.subs.add(sub);
+  }
+
   ngOnDestroy(): void {
     this.subs.unsubscribe();
   }

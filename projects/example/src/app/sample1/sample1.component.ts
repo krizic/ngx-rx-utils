@@ -16,7 +16,7 @@ enum ObservableTag {
 export class Sample1Component extends SubscriptionComponentBase implements OnInit {
   testObservable: Observable<number> = interval(1000);
 
-  constructor(private rxUtils: RxUtils, private ss: Sample1Service) {
+  constructor(private rxUtils: RxUtils) {
     super();
   }
 
@@ -25,18 +25,7 @@ export class Sample1Component extends SubscriptionComponentBase implements OnIni
 
     });
 
-    this.subscribeTo(this.testObservable, ObservableTag.MyInternal, (num: number) => {
-
-    });
-
-    this.subscribeTo(this.testObservable, ObservableTag.MyInternal, (num: number) => {
-
-    });
-
-
-    this.rxUtils.spy.show();
-    //this.rxUtils.spy.debug(ObservableTag.MyInternal);
-    this.rxUtils.spy.log();
+    this.rxUtils.log();
   }
 }
 

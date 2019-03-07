@@ -1,6 +1,11 @@
 {
   "name": "ngx-rx-utils",
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "author": {
+    "name": "Vedran Krizic"
+  },
+  "description": "Small angular library meant to take control of observables and track your subscriptions",
+  "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
