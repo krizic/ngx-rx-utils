@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { Sample1Module } from './sample1/sample1.module';
+import { NgxRxUtilsModule } from 'ngx-rx-utils';
 
 @NgModule({
   declarations: [
@@ -10,9 +11,11 @@ import { Sample1Module } from './sample1/sample1.module';
   ],
   imports: [
     BrowserModule,
-    Sample1Module
+    Sample1Module,
+    NgxRxUtilsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+ }

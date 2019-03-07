@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SubscriptionComponentBase } from 'projects/ngx-rx-utils/src/lib/base';
 import { Observable, interval } from 'rxjs';
+import { RxUtils } from 'projects/ngx-rx-utils/src/lib/service/rx-utils.service';
+import { Sample1Service } from './sample1.service';
 
 enum ObservableTag {
   MyInternal = 'lib-sample1.MyInternal',
@@ -14,7 +16,7 @@ enum ObservableTag {
 export class Sample1Component extends SubscriptionComponentBase implements OnInit {
   testObservable: Observable<number> = interval(1000);
 
-  constructor() {
+  constructor(private rxUtils: RxUtils, private ss: Sample1Service) {
     super();
   }
 
@@ -32,9 +34,9 @@ export class Sample1Component extends SubscriptionComponentBase implements OnIni
     });
 
 
-    //this.observerSpy.show(ObservableTag.MyInternal);
-    //this.observerSpy.debug(ObservableTag.MyInternal);
-    //this.observerSpy.log(ObservableTag.MyInternal);
+    this.rxUtils.spy.show();
+    //this.rxUtils.spy.debug(ObservableTag.MyInternal);
+    this.rxUtils.spy.log();
   }
 }
 

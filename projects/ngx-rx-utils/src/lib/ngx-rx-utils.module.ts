@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
-import { NgxRxUtilsComponent } from './ngx-rx-utils.component';
+import { RxUtils } from './service/rx-utils.service';
 
 @NgModule({
-  declarations: [NgxRxUtilsComponent],
-  imports: [
-  ],
-  exports: [NgxRxUtilsComponent]
+  declarations: [],
+  providers: [RxUtils],
+  exports: [],
 })
-export class NgxRxUtilsModule { }
+export class NgxRxUtilsModule {
+  constructor() {
+  }
+}
