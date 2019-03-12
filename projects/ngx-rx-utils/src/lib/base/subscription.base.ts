@@ -6,8 +6,8 @@ export abstract class SubscriptionBase {
   /**
    * Manages tracking and of given observable
    */
-  subscribeAndTag(observable: Observable<any>, tagName: string, cb?: (...args: any[]) => void): Subscription {
-    const withLogger = observable.pipe(tag(tagName));
+  subscribeAndTag(observable: Observable<any>, tagName?: string, cb?: (...args: any[]) => void): Subscription {
+    const withLogger = !!tagName ? observable.pipe(tag(tagName)) : observable;
     return withLogger.subscribe(cb);
   }
 }

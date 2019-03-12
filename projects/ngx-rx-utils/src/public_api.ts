@@ -6,3 +6,5 @@ export * from './lib/ngx-rx-utils.module';
 export * from './lib/service';
 export * from './lib/base';
 
+export { tag } from 'rxjs-spy/operators/tag';
+
