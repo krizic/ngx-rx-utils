@@ -1,8 +1,12 @@
 {
   "name": "ngx-rx-utils",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "author": {
     "name": "Vedran Krizic"
+  },
+  "repository": {
+    "type": "Angular",
+    "url": "https://github.com/krizic/ngx-rx-utils"
   },
   "keywords": [
     "Angular",
