@@ -1,16 +1,26 @@
 {
   "name": "ngx-rx-utils",
-  "version": "0.0.6",
+  "version": "0.0.11",
   "author": {
     "name": "Vedran Krizic"
   },
-  "keywords": ["Angular", "RxJS", "TypeScript", "Log", "Debug", "ngx"],
+  "repository": {
+    "type": "Angular",
+    "url": "https://github.com/krizic/ngx-rx-utils"
+  },
+  "keywords": [
+    "Angular",
+    "RxJS",
+    "TypeScript",
+    "Log",
+    "Debug",
+    "ngx"
+  ],
   "description": "Small angular library meant to take control of observables and track your subscriptions",
   "license": "MIT",
   "peerDependencies": {
     "@angular/common": "^7.2.0",
     "@angular/core": "^7.2.0"
-
   },
   "dependencies": {
     "rxjs-spy": "^7.5.0"
