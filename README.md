@@ -1,5 +1,7 @@
 # NgxRxUtils
 
+[![Build status](https://draven88.visualstudio.com/ngx-rx-utils/_apis/build/status/ngx-rx-utils-Node.js%20With%20gulp-CI)](https://draven88.visualstudio.com/ngx-rx-utils/_build/latest?definitionId=5)
+
 ## What is this?
 
 Small angular library meant to take control of observables and track your subscriptions
