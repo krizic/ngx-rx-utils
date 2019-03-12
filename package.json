@@ -11,6 +11,7 @@
     "start": "ng serve",
     "build": "ng build",
     "postbuild": "node_modules/.bin/copyfiles ./*.md dist/ngx-rx-utils",
+    "bump": "cd projects/ngx-rx-utils && npm version patch",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -59,7 +60,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "cd projects/ngx-rx-utils && npm version patch"
+      "pre-commit": "npm run bump",
+      "commit-msg": "ver bump"
     }
   }
 }
