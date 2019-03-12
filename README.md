@@ -1,27 +1,162 @@
 # NgxRxUtils
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.4.
+## What is this?
 
-## Development server
+Small angular library meant to take control of observables and track your subscriptions
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Why might you need it
 
-## Code scaffolding
+Common problem of working with RxJS is debugging and proper tracking, which causes lot of aplications end up in poorly preforming state. By using abstract classes and providers from this library your angular aplication will provide better way to track all your subscribtions and debugg your complex observables.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+This library will not only take advantage of rxjs-spy by bring its goods into the angular context, but also provide you with usefull abstract classes which will help you clean up subscribtions and tag track observables.
 
-## Build
+## Install
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Install using NPM:
 
-## Running unit tests
+```
+npm install ngx-rx-utils --save
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Import
 
-## Running end-to-end tests
+Import it like any other npm library and register it in your AppModule (root)
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+```js
+import { NgxRxUtilsModule } from 'ngx-rx-utils';
 
-## Further help
+@NgModule({
+  declarations: [AppComponent],
+  imports: [BrowserModule, NgxRxUtilsModule],
+  providers: [],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## Use
+
+Extend any component that might be subscribing to an observabble like this:
+
+```js
+@Component({
+  // ...
+})
+export class Sample1Component extends SubscriptionComponentBase {
+  testObservable: Observable<number> = interval(1000);
+
+  constructor() {
+    super();
+
+    this.subscribeTo(this.testObservable, 'my-observable', (num: number) => {});
+  }
+}
+```
+
+notice that there is `this.subscribeTo` function. It does 2 things. It will TAG provided observable with a string for tracking and it will also unsubscribe all subscriptions made in this component at the end of its lifecycle (`ngOnDestroy`)
+
+```js
+subscribeTo(
+  observable: Observable<any>,
+  tagName: string,
+  cb: (...args: any[]) => void
+  ): void
+```
+
+if you already have `ngOnDestroy` defined, you can use it just make sure that at the end you call for a `super.ngOnDestroy()` like shown below
+
+```js
+ngOnDestroy(): void {
+  /// your code
+  super.ngOnDestroy()
+}
+```
+
+## Benefit
+
+Now when your observables are nicely taged, lets se how can we take advantaga of that.
+
+By simply injecting another provider to your service or component you will be able to track each of observables you created. 
+
+```js
+import { RxUtils } from 'ngx-rx-utils';
+
+@Component({
+  // ...
+})
+export class Sample1Component extends SubscriptionComponentBase implements OnInit {
+
+  constructor(private rxUtils: RxUtils) {
+    super();
+  }
+}
+```
+
+### `.show`
+
+Will show you all known observables with provided tag name and all its subscribtions
+
+```js
+@Component({
+  // ...
+})
+export class Sample1Component extends SubscriptionComponentBase implements OnInit {
+  testObservable: Observable<number> = interval(1000);
+
+  constructor(private rxUtils: RxUtils) {
+    super();
+  }
+
+  ngOnInit() {
+    this.subscribeTo(this.testObservable, 'lib-sample1.MyInternal', (num: number) => {});
+
+    this.rxUtils.show('lib-sample1.MyInternal');
+  }
+}
+```
+console output: 
+
+```java
+1 snapshot(s) matching /.+/
+  Tag = lib-sample1.MyInternal
+    Path = /observable/tag
+      1 subscriber(s)
+        Subscriber
+          Value count = 0
+          State = incomplete
+          Root subscribe (4) [StackFrame, StackFrame, StackFrame, StackFrame]
+```
+
+### `.log`
+
+Will log live al responces of observable matching tag name
+
+```js
+@Component({
+  // ...
+})
+export class Sample1Component extends SubscriptionComponentBase implements OnInit {
+  testObservable: Observable<number> = interval(1000);
+
+  constructor(private rxUtils: RxUtils) {
+    super();
+  }
+
+  ngOnInit() {
+    this.subscribeTo(this.testObservable, 'lib-sample1.MyInternal', (num: number) => {});
+
+    this.rxUtils.log('lib-sample1.MyInternal');
+  }
+}
+```
+
+console output
+
+```
+Tag = lib-sample1.MyInternal; notification = next; matching /.+/; value = 0
+Tag = lib-sample1.MyInternal; notification = next; matching /.+/; value = 1
+Tag = lib-sample1.MyInternal; notification = next; matching /.+/; value = 2
+Tag = lib-sample1.MyInternal; notification = next; matching /.+/; value = 3
+Tag = lib-sample1.MyInternal; notification = next; matching /.+/; value = 4
+Tag = lib-sample1.MyInternal; notification = next; matching /.+/; value = 5
+```

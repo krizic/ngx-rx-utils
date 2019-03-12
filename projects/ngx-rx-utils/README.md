@@ -2,7 +2,7 @@
 
 ## What is this?
 
-Small angular library ment to take control of observables and track your subscriptions
+Small angular library meant to take control of observables and track your subscriptions
 
 ## Why might you need it
 
