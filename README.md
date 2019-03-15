@@ -74,6 +74,19 @@ ngOnDestroy(): void {
 }
 ```
 
+Or you if your architecture allow you could take a neater approach of tagging your observables on their very creation.
+
+```js
+@Injectable({
+  providedIn: 'root',
+})
+export class Sample1Service {
+  readonly inter2 = interval(1500)
+  .pipe(tag('my-interval-2'));
+}
+```
+
+
 ## Benefit
 
 Now when your observables are nicely taged, lets se how can we take advantaga of that.
